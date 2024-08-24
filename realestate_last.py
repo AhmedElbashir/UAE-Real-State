@@ -82,4 +82,3 @@ if st.button('Predict'):
     st.success(f'The predicted price is: {formatted_price} AED')
     st.info(f'The price per square meter is: {formatted_price_per_sqm} AED/sqm')
 
-!pi
