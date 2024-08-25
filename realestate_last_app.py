@@ -13,8 +13,8 @@ import numpy as np
 
 
 # Load the trained model
-realestate_model = pickle.load(open('best_gb_reg.sav', 'rb'))
-
+with open('best_gb_reg.sav', 'rb') as file:
+    model = pickle.load(file)
 
 # Load feature names or assume you have them saved
 X_columns=[
@@ -142,7 +142,7 @@ if st.button('Predict'):
 
     try:
         # Make prediction
-        prediction = realestate_model.predict(input_data)
+        prediction = model.predict(input_data)
 
         # Calculate price per square meter
         price_per_sqm = prediction[0] / area
