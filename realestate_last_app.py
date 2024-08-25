@@ -13,13 +13,7 @@ import numpy as np
 
 
 # Load the trained model
-model_path = 'best_gb_reg_last.pkl'
-try:
-    with open(model_path, 'rb') as model_file:
-        model = pickle.load(model_file)
-except FileNotFoundError:
-    st.error(f"Model file not found: {model_path}")
-    st.stop()
+real_estate_model = pickle.load(open('best_gb_reg_last.pkl', 'rb'))
 
 # Load feature names or assume you have them saved
 X_columns=[
