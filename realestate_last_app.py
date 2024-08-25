@@ -13,16 +13,13 @@ import numpy as np
 
 
 # Load the trained model
-model_path = 'best_gb_reg_last_joblib.pkl'
-try:
-    with open(model_path, 'rb') as model_file:
-        model = pickle.load(model_file)
+realestate_model = pickle.load(open('best_gb_reg.sav', 'rb'))
 # Ensure the loaded model has a predict method
-    if not hasattr(model, 'predict'):
+    if not hasattr(realestate_model, 'predict'):
         st.error(f"The loaded object is not a model or does not have a 'predict' method. Loaded object type: {type(model)}")
         st.stop()
 except FileNotFoundError:
-    st.error(f"Model file not found: {model_path}")
+    st.error(f"Model file not found: {realestate_model}")
     st.stop()
 except Exception as e:
     st.error(f"An error occurred while loading the model: {e}")
