@@ -10,7 +10,7 @@ Original file is located at
 import streamlit as st
 import pickle
 import numpy as np
-from streamlit_option_menu import option_menu
+
 
 # Load the trained model
 model_path = 'best_gb_reg_last.pkl'
