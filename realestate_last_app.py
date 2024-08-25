@@ -13,7 +13,7 @@ import numpy as np
 
 
 # Load the trained model
-model_path = 'best_gb_reg_last.pkl'
+model_path = 'best_gb_reg_last_joblib.pkl'
 try:
     with open(model_path, 'rb') as model_file:
         model = pickle.load(model_file)
