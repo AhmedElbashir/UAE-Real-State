@@ -135,20 +135,24 @@ input_data[X_columns.index('Area')] = area
 input_data[X_columns.index('Bedrooms')] = bedrooms
 input_data[X_columns.index('Bathrooms')] = bathrooms
 
-# Button to make predictions
+#  Button to make predictions
 if st.button('Predict'):
-    # Convert list to the model's expected input format (list of lists)
-    input_data = [input_data]
+    try:
+        # Convert list to a 2D array
+        input_data_reshaped = [input_data]
 
-    # Make prediction
-    prediction = model.predict(input_data)
+        # Make prediction
+        prediction = model.predict(input_data_reshaped)
 
-    # Calculate price per square meter
-    price_per_sqm = prediction[0] / area
+        # Calculate price per square meter
+        price_per_sqm = prediction[0] / area
 
-    # Display the prediction
-    formatted_price = f"{prediction[0]:,.2f}"
-    formatted_price_per_sqm = f"{price_per_sqm:,.2f}"
+        # Display the prediction
+        formatted_price = f"{prediction[0]:,.2f}"
+        formatted_price_per_sqm = f"{price_per_sqm:,.2f}"
 
-    st.success(f'The predicted price is: {formatted_price} AED')
-    st.info(f'The price per square meter is: {formatted_price_per_sqm} AED/sqm')
+        st.success(f'The predicted price is: {formatted_price} AED')
+        st.info(f'The price per square meter is: {formatted_price_per_sqm} AED/sqm')
+
+    except Exception as e:
+        st.error(f"An error occurred: {e}")
