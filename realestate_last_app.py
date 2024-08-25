@@ -115,15 +115,15 @@ district = st.selectbox('District', ['Abu Dhabi Gate City (Officers City)', 'Ajm
                                     'Za\'abeel', 'Zayed City'])
 area = st.number_input('Area (in square meters)', min_value=10)
 
+# Create an input array with all zeros
+input_data = [0] * len(X_columns)
+
 # Fix the mismatched column names by trimming any extra spaces in the key values
 B_type_col = f'B_type_{B_type}'.replace(" ", "_")
 district_col = f'District_{district}'.replace(" ", "_")
 city_col = f'City_{city}'.replace(" ", "_")
 
-# Create an input array with all zeros
-input_data = np.zeros(len(X_columns))
-
-# Populate the input array with the appropriate values
+# Populate the input list with the appropriate values
 if B_type_col in X_columns:
     input_data[X_columns.index(B_type_col)] = 1
 if city_col in X_columns:
@@ -137,21 +137,18 @@ input_data[X_columns.index('Bathrooms')] = bathrooms
 
 # Button to make predictions
 if st.button('Predict'):
-    # Reshape the input data to match the model's expected input shape
-    input_data = input_data.reshape(1, -1)
+    # Convert list to the model's expected input format (list of lists)
+    input_data = [input_data]
 
-    try:
-        # Make prediction
-        prediction = model.predict(input_data)
+    # Make prediction
+    prediction = model.predict(input_data)
 
-        # Calculate price per square meter
-        price_per_sqm = prediction[0] / area
+    # Calculate price per square meter
+    price_per_sqm = prediction[0] / area
 
-        # Display the prediction
-        formatted_price = f"{prediction[0]:,.2f}"
-        formatted_price_per_sqm = f"{price_per_sqm:,.2f}"
+    # Display the prediction
+    formatted_price = f"{prediction[0]:,.2f}"
+    formatted_price_per_sqm = f"{price_per_sqm:,.2f}"
 
-        st.success(f'The predicted price is: {formatted_price} AED')
-        st.info(f'The price per square meter is: {formatted_price_per_sqm} AED/sqm')
-    except Exception as e:
-        st.error(f"Prediction failed: {e}")
+    st.success(f'The predicted price is: {formatted_price} AED')
+    st.info(f'The price per square meter is: {formatted_price_per_sqm} AED/sqm')
