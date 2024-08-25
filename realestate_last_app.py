@@ -146,15 +146,18 @@ if st.button('Predict'):
     # Reshape the input data to match the model's expected input shape
     input_data = input_data.reshape(1, -1)
 
-    # Make prediction
-    prediction = model.predict(input_data)
+    try:
+        # Make prediction
+        prediction = model.predict(input_data)
 
-    # Calculate price per square meter
-    price_per_sqm = prediction[0] / area
+        # Calculate price per square meter
+        price_per_sqm = prediction[0] / area
 
-    # Display the prediction
-    formatted_price = f"{prediction[0]:,.2f}"
-    formatted_price_per_sqm = f"{price_per_sqm:,.2f}"
+        # Display the prediction
+        formatted_price = f"{prediction[0]:,.2f}"
+        formatted_price_per_sqm = f"{price_per_sqm:,.2f}"
 
-    st.success(f'The predicted price is: {formatted_price} AED')
-    st.info(f'The price per square meter is: {formatted_price_per_sqm} AED/sqm')
+        st.success(f'The predicted price is: {formatted_price} AED')
+        st.info(f'The price per square meter is: {formatted_price_per_sqm} AED/sqm')
+    except Exception as e:
+        st.error(f"Prediction failed: {e}")
