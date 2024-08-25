@@ -142,7 +142,7 @@ if st.button('Predict'):
 
     try:
         # Make prediction
-        prediction = model.predict(input_data)
+        prediction = realestate_model.predict(input_data)
 
         # Calculate price per square meter
         price_per_sqm = prediction[0] / area
